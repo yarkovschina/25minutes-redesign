@@ -84,10 +84,36 @@ section { padding: 80px 0; }
 .section-title .accent { color: #d4785c; }
 .section-desc { font-size: 18px; color: #666; max-width: 600px; margin-bottom: 48px; }
 
-/* === RESULTS === */
+/* === RESULTS SLIDER === */
 .results { background: #fafafa; }
-.results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.result-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; }
+.results-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;
+}
+.results-header-left { text-align: left; }
+.results-header-left .section-label { margin-bottom: 8px; }
+.results-header-left .section-title { margin-bottom: 0; }
+.results-controls { display: flex; align-items: center; gap: 20px; }
+.results-counter { font-size: 18px; font-weight: 600; color: #888; min-width: 60px; text-align: center; }
+.results-counter .cur { color: #d4785c; font-weight: 800; font-size: 22px; }
+.results-nav { display: flex; gap: 10px; }
+.results-nav button {
+  width: 48px; height: 48px; border-radius: 50%; border: 2px solid #e0e0e0;
+  background: #fff; cursor: pointer; font-size: 20px; color: #555;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.results-nav button:hover { border-color: #d4785c; color: #d4785c; }
+.results-nav button:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+.results-track-wrap { overflow: hidden; border-radius: 20px; }
+.results-track {
+  display: flex; gap: 24px; transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  user-select: none;
+}
+.result-card {
+  min-width: calc(33.333% - 16px); flex-shrink: 0;
+  background: #fff; border-radius: 20px; overflow: hidden;
+  border: 1px solid #f0f0f0; transition: box-shadow 0.3s;
+}
+.result-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
 .result-images { display: flex; }
 .result-before, .result-after {
   flex: 1; aspect-ratio: 3/4; display: flex; align-items: center;
@@ -103,6 +129,22 @@ section { padding: 80px 0; }
 .result-info { padding: 20px; }
 .result-name { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
 .result-detail { font-size: 13px; color: #888; }
+.result-card-more {
+  min-width: calc(33.333% - 16px); flex-shrink: 0;
+  background: linear-gradient(135deg, #d4785c, #e8956e); border-radius: 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #fff; text-align: center; padding: 40px; cursor: pointer; transition: all 0.3s;
+}
+.result-card-more:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(212,120,92,0.3); }
+.result-card-more .big-num { font-size: 72px; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+.result-card-more .more-text { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.result-card-more .more-sub { font-size: 14px; opacity: 0.85; }
+.results-dots { display: flex; justify-content: center; gap: 6px; margin-top: 24px; }
+.results-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #ddd;
+  cursor: pointer; transition: all 0.3s;
+}
+.results-dot.active { background: #d4785c; width: 24px; border-radius: 4px; }
 
 /* === PROBLEMS (merged with bonuses + disclaimer) === */
 .problems { background: #fff; }
@@ -411,7 +453,10 @@ section { padding: 80px 0; }
   .hero h1 { font-size: 32px; }
   .section-title { font-size: 28px; }
   .pricing-grid, .problems-top, .how-value-grid, .process-steps,
-  .testimonials-grid, .results-grid, .platform-features { grid-template-columns: 1fr; }
+  .testimonials-grid, .platform-features { grid-template-columns: 1fr; }
+  .result-card, .result-card-more { min-width: calc(85% - 12px); }
+  .results-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .results-nav { display: none; }
   .price-card.featured { transform: none; }
   .hero-stats { flex-wrap: wrap; gap: 24px; }
   .bonuses-row { grid-template-columns: 1fr; }
@@ -470,46 +515,143 @@ section { padding: 80px 0; }
   </div>
 </section>
 
-<!-- 2. RESULTS (До/После) — перенесено на 2-е место -->
+<!-- 2. RESULTS (До/После) — слайдер на 12 карточек -->
 <section class="results" id="results">
   <div class="container">
-    <div style="text-align: center;">
-      <div class="section-label">До / После</div>
-      <div class="section-title">Результаты <span class="accent">тренировок</span></div>
-      <div class="section-desc" style="margin: 0 auto 48px;">Фото реальных участников с разметкой осанки</div>
-    </div>
-    <div class="results-grid">
-      <div class="result-card">
-        <div class="result-images">
-          <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото «до»</div>
-          <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото «после»</div>
-        </div>
-        <div class="result-info">
-          <div class="result-name">Участница, 28 лет</div>
-          <div class="result-detail">6 месяцев · Сутулость → Ровная осанка</div>
-        </div>
+    <div class="results-header">
+      <div class="results-header-left">
+        <div class="section-label">До / После</div>
+        <div class="section-title">Результаты <span class="accent">тренировок</span></div>
       </div>
-      <div class="result-card">
-        <div class="result-images">
-          <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото «до»</div>
-          <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото «после»</div>
-        </div>
-        <div class="result-info">
-          <div class="result-name">Участница, 34 года</div>
-          <div class="result-detail">3 месяца · Боль в пояснице → Свобода</div>
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="result-images">
-          <div class="result-before"><span class="result-label">До</span>🧍 Фото «до»</div>
-          <div class="result-after"><span class="result-label">После</span>🧍 Фото «после»</div>
-        </div>
-        <div class="result-info">
-          <div class="result-name">Участник, 31 год</div>
-          <div class="result-detail">6 месяцев · Сидячая работа → Подвижность</div>
+      <div class="results-controls">
+        <div class="results-counter"><span class="cur" id="sliderCur">1</span> / 12</div>
+        <div class="results-nav">
+          <button id="sliderPrev" disabled onclick="slideResults(-1)">&#8592;</button>
+          <button id="sliderNext" onclick="slideResults(1)">&#8594;</button>
         </div>
       </div>
     </div>
+    <div class="results-track-wrap">
+      <div class="results-track" id="resultsTrack">
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Анастасия, 28 лет</div>
+            <div class="result-detail">6 мес · Сутулость → Ровная осанка</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Мария, 34 года</div>
+            <div class="result-detail">3 мес · Боль в пояснице → Свобода</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍 Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍 Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Дмитрий, 31 год</div>
+            <div class="result-detail">6 мес · Сидячая работа → Подвижность</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Алёна, 26 лет</div>
+            <div class="result-detail">4 мес · Боль в шее → Лёгкость</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Вика, 38 лет</div>
+            <div class="result-detail">6 мес · Кифоз → Ровная спина</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍 Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍 Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Артём, 29 лет</div>
+            <div class="result-detail">3 мес · Выпирающий живот → Подтянутость</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Татьяна, 42 года</div>
+            <div class="result-detail">6 мес · Боль в спине → Без боли</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Алия, 25 лет</div>
+            <div class="result-detail">4 мес · Сутулость → Уверенность</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Ольга, 33 года</div>
+            <div class="result-detail">6 мес · Головные боли → Здоровье</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍 Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍 Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Максим, 35 лет</div>
+            <div class="result-detail">6 мес · Боль в пояснице → Активность</div>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-images">
+            <div class="result-before"><span class="result-label">До</span>🧍‍♀️ Фото</div>
+            <div class="result-after"><span class="result-label">После</span>🧍‍♀️ Фото</div>
+          </div>
+          <div class="result-info">
+            <div class="result-name">Катя, 27 лет</div>
+            <div class="result-detail">3 мес · Зажатость → Гибкость</div>
+          </div>
+        </div>
+        <!-- Финальная карточка -->
+        <div class="result-card-more" onclick="window.location.href='https://t.me/minutes25_bot'">
+          <div class="big-num">150+</div>
+          <div class="more-text">И ещё столько результатов</div>
+          <div class="more-sub">Напиши нам — покажем все кейсы</div>
+        </div>
+      </div>
+    </div>
+    <div class="results-dots" id="resultsDots"></div>
   </div>
 </section>
 
@@ -1026,6 +1168,89 @@ function toggleCurrency(btn, type) {
   document.querySelectorAll('.pricing-toggle button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+
+/* === RESULTS SLIDER === */
+(function() {
+  const track = document.getElementById('resultsTrack');
+  const counter = document.getElementById('sliderCur');
+  const prevBtn = document.getElementById('sliderPrev');
+  const nextBtn = document.getElementById('sliderNext');
+  const dotsWrap = document.getElementById('resultsDots');
+  const cards = track.children;
+  const total = cards.length;
+  let currentIndex = 0;
+  let cardsVisible = 3;
+  let maxIndex = total - cardsVisible;
+
+  function getCardsVisible() {
+    return window.innerWidth <= 768 ? 1 : 3;
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    const pages = maxIndex + 1;
+    for (let i = 0; i < pages; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'results-dot' + (i === currentIndex ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function updateSlider() {
+    cardsVisible = getCardsVisible();
+    maxIndex = total - cardsVisible;
+    if (maxIndex < 0) maxIndex = 0;
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    const gap = 24;
+    const cardW = (track.parentElement.clientWidth - gap * (cardsVisible - 1)) / cardsVisible;
+    const offset = currentIndex * (cardW + gap);
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    counter.textContent = (currentIndex + 1);
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+    buildDots();
+  }
+
+  function goTo(i) {
+    currentIndex = Math.max(0, Math.min(i, maxIndex));
+    updateSlider();
+  }
+
+  window.slideResults = function(dir) {
+    goTo(currentIndex + dir);
+  };
+
+  // Touch/swipe support
+  let startX = 0, startY = 0, isDragging = false;
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  }, { passive: true });
+  track.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      slideResults(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+
+  // Mouse drag
+  let mouseStartX = 0, mouseDown = false;
+  track.addEventListener('mousedown', (e) => { mouseDown = true; mouseStartX = e.clientX; });
+  window.addEventListener('mouseup', (e) => {
+    if (!mouseDown) return;
+    mouseDown = false;
+    const dx = e.clientX - mouseStartX;
+    if (Math.abs(dx) > 40) slideResults(dx < 0 ? 1 : -1);
+  });
+
+  window.addEventListener('resize', updateSlider);
+  updateSlider();
+})();
 </script>
 </body>
 </html>
