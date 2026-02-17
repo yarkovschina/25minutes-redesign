@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разбор осанки — 25 минут</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --coral: #d4785c;
+            --coral-light: #e8a08a;
+            --coral-bg: #fdf5f2;
+            --dark: #1a1a1a;
+            --gray: #666;
+            --gray-light: #999;
+            --bg: #fafafa;
+            --white: #fff;
+            --green: #2d8f5c;
+            --shadow: 0 2px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 16px 0;
+        }
+        .nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--coral);
+        }
+        .nav-logo span { color: var(--dark); font-weight: 600; font-size: 14px; }
+        .nav-cta {
+            background: var(--coral);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .nav-cta:hover { background: #c06a50; transform: translateY(-1px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--coral-bg) 100%);
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            border: 1px solid var(--coral-light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero-badge svg { width: 16px; height: 16px; }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .hero h1 em {
+            font-style: normal;
+            color: var(--coral);
+        }
+        .hero-sub {
+            font-size: 18px;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--coral);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-primary:hover { background: #c06a50; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,120,92,0.35); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid #e0e0e0;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-secondary:hover { border-color: var(--coral); color: var(--coral); }
+        .hero-trust {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .hero-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        .hero-trust-item svg { width: 18px; height: 18px; color: var(--green); }
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-visual-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+        }
+        .hero-visual-price {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--coral);
+            line-height: 1;
+        }
+        .hero-visual-old {
+            font-size: 22px;
+            color: var(--gray-light);
+            text-decoration: line-through;
+            margin-top: 8px;
+        }
+        .hero-visual-label {
+            margin-top: 16px;
+            font-size: 15px;
+            color: var(--gray);
+        }
+        .hero-visual-guarantee {
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #edf7f0;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section { padding: 80px 0; }
+        .section-gray { background: var(--bg); }
+        .section-coral { background: var(--coral); color: white; }
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--gray);
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* ===== WHAT YOU GET ===== */
+        .what-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .what-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .what-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+        .what-card-num {
+            width: 44px;
+            height: 44px;
+            background: var(--coral);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .what-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .what-card p {
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ===== EXPERT ===== */
+        .expert .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .expert-photo {
+            width: 100%;
+            border-radius: 24px;
+            background: var(--coral-bg);
+            aspect-ratio: 4/5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+        }
+        .expert-content h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .expert-role {
+            font-size: 16px;
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .expert-desc {
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .expert-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .expert-stat {
+            text-align: center;
+            padding: 20px;
+            background: var(--coral-bg);
+            border-radius: 16px;
+        }
+        .expert-stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--coral);
+        }
+        .expert-stat-label {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* ===== FOR WHOM ===== */
+        .whom-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .whom-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .whom-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .whom-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--coral-bg);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .whom-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .whom-card p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+        .step-card {
+            text-align: center;
+            padding: 40px 24px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .step-num {
+            width: 60px;
+            height: 60px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+        .step-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        .step-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 6px 14px;
+            background: var(--coral-bg);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--coral);
+        }
+
+        /* ===== INCLUDES ===== */
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .includes-item {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        .includes-check {
+            width: 32px;
+            height: 32px;
+            background: #edf7f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--green);
+        }
+        .includes-item h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .includes-item p {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--coral-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .testimonial-city {
+            font-size: 13px;
+            color: var(--gray-light);
+        }
+        .testimonial-stars {
+            color: #f5a623;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 28px;
+            padding: 48px;
+            box-shadow: 0 4px 40px rgba(212,120,92,0.15);
+            text-align: center;
+            border: 2px solid var(--coral-light);
+        }
+        .pricing-label {
+            display: inline-block;
+            background: var(--coral);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .pricing-amount {
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--dark);
+        }
+        .pricing-amount span {
+            font-size: 36px;
+        }
+        .pricing-old {
+            font-size: 24px;
+            color: var(--gray-light);
+            text-decoration: line-through;
+            margin-top: 4px;
+        }
+        .pricing-features {
+            margin: 28px 0;
+            text-align: left;
+        }
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 15px;
+        }
+        .pricing-feature:last-child { border-bottom: none; }
+        .pricing-feature svg {
+            width: 20px;
+            height: 20px;
+            color: var(--green);
+            flex-shrink: 0;
+        }
+        .pricing-cta {
+            width: 100%;
+            padding: 18px;
+            background: var(--coral);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        .pricing-cta:hover { background: #c06a50; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,120,92,0.35); }
+        .pricing-guarantee {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid #eee;
+        }
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            text-align: left;
+        }
+        .faq-question:hover { color: var(--coral); }
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--coral-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coral);
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .faq-item.active .faq-icon { background: var(--coral); color: white; transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer-inner {
+            padding: 0 0 20px;
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        .faq-item.active .faq-answer { max-height: 300px; }
+
+        /* ===== GUARANTEE ===== */
+        .guarantee-card {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            background: #edf7f0;
+            border-radius: 24px;
+            padding: 40px;
+        }
+        .guarantee-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        .guarantee-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--green);
+        }
+        .guarantee-card p {
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            padding: 80px 0;
+            background: var(--coral);
+            text-align: center;
+            color: white;
+        }
+        .final-cta h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .final-cta p {
+            font-size: 17px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-white {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--coral);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 0;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        .footer-info {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+        }
+        .footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer a:hover { color: var(--coral-light); }
+        .footer-tg {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; gap: 40px; }
+            .hero h1 { font-size: 40px; }
+            .hero-visual-card { margin: 0 auto; }
+            .expert .container { grid-template-columns: 1fr; gap: 40px; }
+            .expert-photo { max-width: 300px; margin: 0 auto; }
+            .testimonials-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 48px 0 40px; }
+            .hero h1 { font-size: 32px; }
+            .hero-sub { font-size: 16px; }
+            .hero-cta-group { flex-direction: column; align-items: flex-start; }
+            .hero-trust { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .section { padding: 56px 0; }
+            .section-title { font-size: 28px; }
+            .what-grid, .steps-grid { grid-template-columns: 1fr; }
+            .whom-grid { grid-template-columns: 1fr; }
+            .includes-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .expert-stats { grid-template-columns: 1fr; }
+            .pricing-card { padding: 32px 24px; }
+            .pricing-amount { font-size: 48px; }
+            .guarantee-card { flex-direction: column; text-align: center; padding: 32px 24px; }
+            .final-cta h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="container">
+        <div class="nav-logo">25 минут <span>тренировки для красивой осанки</span></div>
+        <a href="#pricing" class="nav-cta">Получить разбор</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Более 1 000 разборов
+            </div>
+            <h1>Узнай, что <em>на самом деле</em> происходит с твоей спиной</h1>
+            <p class="hero-sub">Тренер лично проанализирует твою осанку по видео и расскажет, откуда берётся дискомфорт и что конкретно делать. Всего за 2 минуты записи.</p>
+            <div class="hero-cta-group">
+                <a href="#pricing" class="btn-primary">Получить разбор за 1 990 ₽</a>
+                <a href="#how" class="btn-secondary">Как это работает ↓</a>
+            </div>
+            <div class="hero-trust">
+                <div class="hero-trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Гарантия возврата
+                </div>
+                <div class="hero-trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Результат за 48 часов
+                </div>
+                <div class="hero-trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Через Telegram
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-visual-card">
+                <div class="pricing-label">Скидка 50%</div>
+                <div class="hero-visual-price">1 990 ₽</div>
+                <div class="hero-visual-old">3 990 ₽</div>
+                <div class="hero-visual-label">Персональный видеоразбор + тренировка</div>
+                <div class="hero-visual-guarantee">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Вернём деньги, если не понравится
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Что ты узнаешь из разбора</h2>
+        <p class="section-subtitle">Персональный анализ именно твоей осанки — не шаблон, а конкретные ответы про твоё тело</p>
+        <div class="what-grid">
+            <div class="what-card">
+                <div class="what-card-num">1</div>
+                <h3>Откуда появляется дискомфорт</h3>
+                <p>Зажимы, вдовий горбик, сутулость, торчащие лопатки — тренер покажет, где именно у тебя проблема и почему она возникла</p>
+            </div>
+            <div class="what-card">
+                <div class="what-card-num">2</div>
+                <h3>Как всё связано в твоём теле</h3>
+                <p>Стопы — с шеей, дыхание — с осанкой. Поймёшь, почему важно работать комплексно, а не просто качать спину в зале</p>
+            </div>
+            <div class="what-card">
+                <div class="what-card-num">3</div>
+                <h3>Что делать и как помочь спине</h3>
+                <p>Получишь конкретный план: тренировку, подобранную под твои проблемы, и рекомендации для мягкого старта</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERT -->
+<section class="section section-gray expert">
+    <div class="container">
+        <div class="expert-photo">🧑‍⚕️</div>
+        <div class="expert-content">
+            <h2>Кто проводит разбор</h2>
+            <div class="expert-role">Тренер проекта «25 минут»</div>
+            <p class="expert-desc">Каждый разбор делает квалифицированный тренер, который специализируется на работе с осанкой. Это не автоматический отчёт — живой человек внимательно изучает твоё видео, находит все нарушения и записывает подробный видеоразбор с объяснениями.</p>
+            <p class="expert-desc">Здесь нужно добавить фото и имя вашего тренера, его образование и сертификаты — это критически важно для доверия.</p>
+            <div class="expert-stats">
+                <div class="expert-stat">
+                    <div class="expert-stat-num">1 000+</div>
+                    <div class="expert-stat-label">разборов проведено</div>
+                </div>
+                <div class="expert-stat">
+                    <div class="expert-stat-num">5+</div>
+                    <div class="expert-stat-label">лет опыта</div>
+                </div>
+                <div class="expert-stat">
+                    <div class="expert-stat-num">98%</div>
+                    <div class="expert-stat-label">довольных клиентов</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Кому подойдёт разбор</h2>
+        <p class="section-subtitle">Если узнаёшь себя хотя бы в одном пункте — разбор будет полезен</p>
+        <div class="whom-grid">
+            <div class="whom-card">
+                <div class="whom-icon">🔥</div>
+                <div>
+                    <h4>Болит спина или шея</h4>
+                    <p>Грыжи, протрузии, зажимы — хочешь понять, откуда боль и что с этим делать</p>
+                </div>
+            </div>
+            <div class="whom-card">
+                <div class="whom-icon">💻</div>
+                <div>
+                    <h4>Сидячая работа</h4>
+                    <p>Офис или удалёнка — по 8-10 часов за компом в одном положении</p>
+                </div>
+            </div>
+            <div class="whom-card">
+                <div class="whom-icon">📸</div>
+                <div>
+                    <h4>Не нравишься себе на фото</h4>
+                    <p>Сутулость, скруглённые плечи — хочешь выглядеть уверенно и ровно</p>
+                </div>
+            </div>
+            <div class="whom-card">
+                <div class="whom-icon">🤰</div>
+                <div>
+                    <h4>Планируешь беременность или уже мама</h4>
+                    <p>Важно подготовить тело или восстановиться после родов правильно</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-gray" id="how">
+    <div class="container">
+        <h2 class="section-title">Как это работает</h2>
+        <p class="section-subtitle">Три простых шага — и ты получишь полный разбор своей осанки</p>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h3>Получи инструкцию</h3>
+                <p>После оплаты Telegram-бот пришлёт подробную инструкцию: как и где записать видео, чтобы тренер всё увидел</p>
+                <div class="step-time">⚡ 1 минута</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h3>Запиши видео</h3>
+                <p>Покрутись перед камерой в облегающей одежде. Ничего сложного — справится любой</p>
+                <div class="step-time">⚡ 2 минуты</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h3>Получи разбор</h3>
+                <p>Тренер запишет персональный видеоразбор: покажет, где проблемы, объяснит почему, и подберёт тренировку для тебя</p>
+                <div class="step-time">⏰ В течение 48 часов</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Что входит в разбор</h2>
+        <p class="section-subtitle">Всё, что ты получишь за 1 990 ₽</p>
+        <div class="includes-grid">
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Персональный видеоразбор</h4>
+                    <p>Тренер записывает видео с анализом именно твоей осанки, не шаблон</p>
+                </div>
+            </div>
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Диагностика нарушений</h4>
+                    <p>С линеечками и пояснениями — увидишь, где смещение, зажимы и перекосы</p>
+                </div>
+            </div>
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Объяснение причин</h4>
+                    <p>Почему болит, откуда дискомфорт, как всё связано — понятным языком</p>
+                </div>
+            </div>
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Индивидуальная тренировка</h4>
+                    <p>Подобранная под твои проблемы программа для мягкого старта</p>
+                </div>
+            </div>
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Рекомендации по упражнениям</h4>
+                    <p>Конкретный план действий: с чего начать и на что обратить внимание</p>
+                </div>
+            </div>
+            <div class="includes-item">
+                <div class="includes-check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                    <h4>Доступ через Telegram</h4>
+                    <p>Всё в удобном боте — получаешь и смотришь в привычном мессенджере</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-gray">
+    <div class="container">
+        <h2 class="section-title">Отзывы тех, кто прошёл разбор</h2>
+        <p class="section-subtitle">Мы видели больше 1 000 спин — вот что говорят наши клиенты</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">Л</div>
+                    <div>
+                        <div class="testimonial-name">Ляйсан</div>
+                        <div class="testimonial-city">Санкт-Петербург</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Было очень интересно! Я всегда думала, что знаю свою проблему: сутулость. А после разбора поняла, что начинать надо со стоп и таза — это было открытие.</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">М</div>
+                    <div>
+                        <div class="testimonial-name">Маша</div>
+                        <div class="testimonial-city">Хайфа</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Меня мучили головные боли. Разбор был очень показательным — таз смещён вперёд, шея уходила вперёд, стопы подвёрнуты внутрь. Тренер подсказал, что делать!</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">С</div>
+                    <div>
+                        <div class="testimonial-name">Саша</div>
+                        <div class="testimonial-city">Ларнака</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Объяснили подробно, понятно, на пальцах, с линеечками. Никогда не задумывалась про положение таза. Даже мужу рассказывала!</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">И</div>
+                    <div>
+                        <div class="testimonial-name">Илария</div>
+                        <div class="testimonial-city">Москва</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Я актриса и модель. После разбора испытала смешанные чувства, но было важно услышать, что я не безнадёжна и меня бережно направят.</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">И</div>
+                    <div>
+                        <div class="testimonial-name">Ира</div>
+                        <div class="testimonial-city">Варна</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Стало новостью, что когда я сгорблена и пытаюсь выпрямиться — делаю неправильно и усугубляю проблему. Начала применять рекомендации — стало лучше!</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">Н</div>
+                    <div>
+                        <div class="testimonial-name">Наль</div>
+                        <div class="testimonial-city">Алматы</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">Рабочий день по 10 часов за компом. Была грыжа и операция. Оказалось — вялый тип осанки. Тренер посоветовал работать с дыханием и мобильностью лопаток.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+    <div class="container">
+        <h2 class="section-title">Получи свой разбор</h2>
+        <p class="section-subtitle">Одна покупка — полная картина состояния твоей осанки</p>
+        <div class="pricing-card">
+            <div class="pricing-label">Скидка 50%</div>
+            <div class="pricing-amount">1 990 <span>₽</span></div>
+            <div class="pricing-old">3 990 ₽</div>
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Персональный видеоразбор от тренера
+                </div>
+                <div class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Диагностика нарушений с разметкой
+                </div>
+                <div class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Объяснение причин дискомфорта
+                </div>
+                <div class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Индивидуальная тренировка
+                </div>
+                <div class="pricing-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    Результат в течение 48 часов
+                </div>
+            </div>
+            <button class="pricing-cta" onclick="window.open('https://t.me/minutes25_bot', '_blank')">Получить разбор</button>
+            <div class="pricing-guarantee">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Гарантия возврата, если не понравится
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="guarantee-card">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h3>Гарантия возврата денег</h3>
+                <p>Если после получения разбора ты посчитаешь, что он тебе не помог и не дал ценности — мы вернём деньги. Без вопросов и лишних условий. Мы уверены в качестве своей работы.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Частые вопросы</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">Что потребуется для разбора? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Смартфон для записи видео и зеркало (или помощь друга). Нужно будет записать короткое видео в облегающей одежде — бот пришлёт подробную инструкцию.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Мне нужно как-то готовиться к этому? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Нет, никакой подготовки не нужно. Просто запиши видео по инструкции и отправь — тренер сделает всё остальное.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Что будет в разборе? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Тренер запишет персональное видео, где покажет все нарушения в твоей осанке, объяснит причины дискомфорта и даст конкретные рекомендации. Плюс подберёт тренировку специально для тебя.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Когда я получу разбор? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">В течение 48 часов после отправки видео. Тренер внимательно изучает каждое видео, поэтому нужно немного времени на качественный анализ.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Можно ли оплатить иностранной картой? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Да, мы принимаем оплату иностранными картами. Напишите нам в Telegram, и мы подберём удобный для вас способ оплаты.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">А если мне не понравится? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Мы вернём деньги. Если разбор не дал вам ценности — просто напишите нам, и мы сделаем возврат без лишних вопросов.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Можно подарить разбор? <span class="faq-icon">+</span></button>
+                <div class="faq-answer"><div class="faq-answer-inner">Конечно! Это отличный подарок для тех, кто заботится о здоровье. Напишите нам в Telegram, и мы оформим подарочный разбор.</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+    <div class="container">
+        <h2>Узнай, что происходит с твоей спиной</h2>
+        <p>Персональный разбор от тренера — за 1 990 ₽ вместо 3 990 ₽. Гарантия возврата.</p>
+        <a href="#pricing" class="btn-white">Получить разбор →</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <a href="https://t.me/minutes25" class="footer-tg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Наш Telegram
+        </a>
+        <div class="footer-info">
+            ИП Шолудченко Я.А.<br>
+            ИНН: 616206440440 | ОГРНИП: 616206440440<br>
+            hello@25minutes.online<br><br>
+            <a href="#">Публичная оферта</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
+        });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+</script>
+
+</body>
+</html>
