@@ -1,5 +1,8 @@
 {
   "buildCommand": "",
   "outputDirectory": ".",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/razbor", "destination": "/razbor.html" }
+  ]
 }
