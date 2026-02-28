@@ -1,0 +1,20 @@
+# Скопируй этот файл в .github/workflows/auto-runner.yml каждого репо.
+# Или используй setup.sh для автоматической раскатки.
+
+name: Auto Runner
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  auto-run:
+    if: github.event.label.name == 'auto-run'
+    uses: yarkovschina/orchestrator/.github/workflows/reusable-auto-runner.yml@main
+    with:
+      issue_number: ${{ github.event.issue.number }}
+      issue_title: ${{ github.event.issue.title }}
+      issue_body: ${{ github.event.issue.body }}
+      repo_owner: ${{ github.repository_owner }}
+      repo_name: ${{ github.event.repository.name }}
+    secrets: inherit
